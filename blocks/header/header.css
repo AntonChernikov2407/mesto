@@ -1,0 +1,28 @@
+.header {
+  max-width: 880px;
+  max-height: 74px;
+  padding-bottom: 41px;
+  margin: auto;
+  position: relative;
+}
+
+.header::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid #545454;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 950px) {
+  .header {
+    max-width: none;
+    width: 100%;
+    max-height: 56px;
+    padding-bottom: 32px;
+  }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class="page">
+  <!-- Шапка сайта -->
+  <header class="header">
+    <div class="header__logo"></div>
+  </header>
+  <!-- Основной контент -->
+  <main class="content">
+
+    <section class="profile">
+      <div class="profile__container"> 
+        <img class="profile__avatar" src="./images/Avatar.jpg" alt="Аватар">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__about-yourself">Исследователь океана</p>
+          <button class="profile__edit-button" type="button"></button>
+        </div>
+      </div>
+      <button class="profile__add-button" type="button"></button>
+    </section>
+
+    <section class="elements">
+      <figure class="element"> <!--Первый элемент-->
+        <img class="element__image" src="./images/Karachay-Cherkessia.jpg" alt="Изображение">
+        <figcaption class="element__caption">
+          <h2 class="element__caption-title">Карачаево-Черкессия</h2>
+          <button class="element__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="element"> <!--Второй элемент-->
+        <img class="element__image" src="./images/Elbrus.jpg" alt="Изображение">
+        <figcaption class="element__caption">
+          <h2 class="element__caption-title">Гора Эльбрус</h2>
+          <button class="element__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="element"> <!--Третий элемент-->
+        <img class="element__image" src="./images/Dombai.jpg" alt="Изображение">
+        <figcaption class="element__caption">
+          <h2 class="element__caption-title">Домбай</h2>
+          <button class="element__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="element"> <!--Четвёртый элемент-->
+        <img class="element__image" src="./images/Altai.jpeg" alt="Изображение">
+        <figcaption class="element__caption">
+          <h2 class="element__caption-title">Алтай</h2>
+          <button class="element__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="element"> <!--Пятый элемент-->
+        <img class="element__image" src="./images/Baikal.jpeg" alt="Изображение">
+        <figcaption class="element__caption">
+          <h2 class="element__caption-title">Байкал</h2>
+          <button class="element__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+      <figure class="element"> <!--Шестой элемент-->
+        <img class="element__image" src="./images/Vladivostok.jpg" alt="Изображение">
+        <figcaption class="element__caption">
+          <h2 class="element__caption-title">Владивосток</h2>
+          <button class="element__like-button" type="button"></button>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="popup">
+      <form class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <fieldset class="popup__input-container"> 
+          <input class="popup__input popup__name" type="text">
+          <input class="popup__input popup__about-yourself" type="text">
+        </fieldset> 
+        <button class="popup__submit-button" type="submit">Сохранить</button>
+        <button class="popup__close-button" type="button"></button> 
+      </form>  
+    </section>
+
+  </main>
+  <!-- Подвал сайта -->
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
+  </footer>
+
+  <script src="./scripts/script.js"></script>
+</body>
+</html>
