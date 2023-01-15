@@ -16,72 +16,74 @@
 
     <section class="profile">
       <div class="profile__container"> 
-        <img class="profile__avatar" src="./images/Avatar.jpg" alt="Аватар">
+        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__about-yourself">Исследователь океана</p>
-          <button class="profile__edit-button" type="button"></button>
+          <button class="profile__edit-button" type="button" aria-label="кнопка"></button>
         </div>
       </div>
-      <button class="profile__add-button" type="button"></button>
+      <button class="profile__add-button" type="button" aria-label="кнопка"></button>
     </section>
 
     <section class="elements">
-      <figure class="element"> <!--Первый элемент-->
-        <img class="element__image" src="./images/Karachay-Cherkessia.jpg" alt="Изображение">
-        <figcaption class="element__caption">
+      <article class="element"> <!--Первый элемент-->
+        <img class="element__image" src="./images/karachay-cherkessia.jpg" alt="Изображение">
+        <div class="element__caption">
           <h2 class="element__caption-title">Карачаево-Черкессия</h2>
-          <button class="element__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element"> <!--Второй элемент-->
-        <img class="element__image" src="./images/Elbrus.jpg" alt="Изображение">
-        <figcaption class="element__caption">
+          <button class="element__like-button" type="button" aria-label="кнопка"></button>
+        </div>
+      </article>
+      <article class="element"> <!--Второй элемент-->
+        <img class="element__image" src="./images/elbrus.jpg" alt="Изображение">
+        <div class="element__caption">
           <h2 class="element__caption-title">Гора Эльбрус</h2>
-          <button class="element__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element"> <!--Третий элемент-->
-        <img class="element__image" src="./images/Dombai.jpg" alt="Изображение">
-        <figcaption class="element__caption">
+          <button class="element__like-button" type="button" aria-label="кнопка"></button>
+        </div>
+      </article>
+      <article class="element"> <!--Третий элемент-->
+        <img class="element__image" src="./images/dombai.jpg" alt="Изображение">
+        <div class="element__caption">
           <h2 class="element__caption-title">Домбай</h2>
-          <button class="element__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element"> <!--Четвёртый элемент-->
-        <img class="element__image" src="./images/Altai.jpeg" alt="Изображение">
-        <figcaption class="element__caption">
+          <button class="element__like-button" type="button" aria-label="кнопка"></button>
+        </div>
+      </article>
+      <article class="element"> <!--Четвёртый элемент-->
+        <img class="element__image" src="./images/altai.jpeg" alt="Изображение">
+        <div class="element__caption">
           <h2 class="element__caption-title">Алтай</h2>
-          <button class="element__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element"> <!--Пятый элемент-->
-        <img class="element__image" src="./images/Baikal.jpeg" alt="Изображение">
-        <figcaption class="element__caption">
+          <button class="element__like-button" type="button" aria-label="кнопка"></button>
+        </div>
+      </article>
+      <article class="element"> <!--Пятый элемент-->
+        <img class="element__image" src="./images/baikal.jpeg" alt="Изображение">
+        <div class="element__caption">
           <h2 class="element__caption-title">Байкал</h2>
-          <button class="element__like-button" type="button"></button>
-        </figcaption>
-      </figure>
-      <figure class="element"> <!--Шестой элемент-->
-        <img class="element__image" src="./images/Vladivostok.jpg" alt="Изображение">
-        <figcaption class="element__caption">
+          <button class="element__like-button" type="button" aria-label="кнопка"></button>
+        </div>
+      </article>
+      <article class="element"> <!--Шестой элемент-->
+        <img class="element__image" src="./images/vladivostok.jpg" alt="Изображение">
+        <div class="element__caption">
           <h2 class="element__caption-title">Владивосток</h2>
-          <button class="element__like-button" type="button"></button>
-        </figcaption>
-      </figure>
+          <button class="element__like-button" type="button" aria-label="кнопка"></button>
+        </div>
+      </article>
     </section>
 
-    <section class="popup">
-      <form class="popup__container">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <fieldset class="popup__input-container"> 
-          <input class="popup__input popup__name" type="text">
-          <input class="popup__input popup__about-yourself" type="text">
-        </fieldset> 
-        <button class="popup__submit-button" type="submit">Сохранить</button>
-        <button class="popup__close-button" type="button"></button> 
-      </form>  
-    </section>
+    <div class="popup">
+      <div class="popup__container">
+        <form class="form" name="edit-profile-form">
+          <h2 class="form__title">Редактировать профиль</h2>
+          <fieldset class="form__input-container"> 
+            <input class="form__input" type="text" name="name">
+            <input class="form__input" type="text" name="about">
+          </fieldset> 
+          <button class="form__submit-button" type="submit">Сохранить</button> 
+        </form> 
+        <button class="popup__close-button" type="button" aria-label="кнопка"></button>
+      </div>
+    </div>
 
   </main>
   <!-- Подвал сайта -->
@@ -89,6 +91,6 @@
     <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
   </footer>
 
-  <script src="./scripts/script.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

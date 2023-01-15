@@ -1,15 +1,15 @@
 .profile__edit-button {
   width: 24px;
   height: 24px;
-  background-image: url(../../../images/logo/Edit-Button.svg);
+  background-image: url(../../../images/logo/edit-button.svg);
   background-color: transparent;
   border: none;
-  position: absolute;
-  top: 13px;
-  right: -42px;
   padding: 0;
   opacity: 1;
   transition: opacity 0.4s ease-out;
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 15px;
 }
 
 .profile__edit-button:hover {
@@ -21,8 +21,10 @@
   .profile__edit-button {
     width: 18px;
     height: 18px;
-    top: 6px;
+    position: absolute;
+    top: 9px;
     right: -28px;
     background-size: cover;
+    margin-top: 0;
   }
 }

@@ -1,4 +1,4 @@
-.popup__input {
+.form__input {
   min-width: 358px;
   height: 27px;
   border: none;
@@ -10,14 +10,14 @@
   position: relative;
 }
 
-.popup__input:focus {
+.form__input:focus {
   outline: none;
   border-bottom: 2px solid #000;
   padding: 0 0 10px;
 }
 
 @media screen and (max-width: 620px) {
-  .popup__input {
+  .form__input {
     min-width: 232px;
   }
 }
