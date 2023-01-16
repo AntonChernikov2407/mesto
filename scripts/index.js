@@ -6,13 +6,14 @@ let closeButton = page.querySelector('.popup__close-button');
 let popup = page.querySelector('.popup');
 let form = popup.querySelector('.form');
 let submitButton = form.querySelector('.form__submit-button');
-let formInput = form.querySelectorAll('.form__input');
+let nameInput = form.querySelector('#name');
+let aboutInput = form.querySelector('#about');
 
 // Открывает popup и заполняет поля ввода значениями со страницы
 function openPopup() {
   popup.classList.add('popup_opened');
-  formInput[0].value = profileName.textContent;
-  formInput[1].value = profileAboutYourself.textContent;
+  nameInput.value = profileName.textContent;
+  aboutInput.value = profileAboutYourself.textContent;
 }
 // Закрывает popup
 function closePopup() {
@@ -21,8 +22,8 @@ function closePopup() {
 // Сохраняет новые значения полей ввода и закрывает popup
 function handleFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = formInput[0].value;
-  profileAboutYourself.textContent = formInput[1].value;
+  profileName.textContent = nameInput.value;
+  profileAboutYourself.textContent = aboutInput.value;
   closePopup();
 }
 
