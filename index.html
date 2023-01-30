@@ -27,57 +27,28 @@
     </section>
 
     <section class="elements" aria-label="карточки">
-      <article class="element"> <!--Первый элемент-->
-        <img class="element__image" src="./images/karachay-cherkessia.jpg" alt="Изображение">
-        <div class="element__caption">
-          <h2 class="element__caption-title">Карачаево-Черкессия</h2>
-          <button class="element__like-button" type="button" aria-label="кнопка"></button>
-        </div>
-      </article>
-      <article class="element"> <!--Второй элемент-->
-        <img class="element__image" src="./images/elbrus.jpg" alt="Изображение">
-        <div class="element__caption">
-          <h2 class="element__caption-title">Гора Эльбрус</h2>
-          <button class="element__like-button" type="button" aria-label="кнопка"></button>
-        </div>
-      </article>
-      <article class="element"> <!--Третий элемент-->
-        <img class="element__image" src="./images/dombai.jpg" alt="Изображение">
-        <div class="element__caption">
-          <h2 class="element__caption-title">Домбай</h2>
-          <button class="element__like-button" type="button" aria-label="кнопка"></button>
-        </div>
-      </article>
-      <article class="element"> <!--Четвёртый элемент-->
-        <img class="element__image" src="./images/altai.jpeg" alt="Изображение">
-        <div class="element__caption">
-          <h2 class="element__caption-title">Алтай</h2>
-          <button class="element__like-button" type="button" aria-label="кнопка"></button>
-        </div>
-      </article>
-      <article class="element"> <!--Пятый элемент-->
-        <img class="element__image" src="./images/baikal.jpeg" alt="Изображение">
-        <div class="element__caption">
-          <h2 class="element__caption-title">Байкал</h2>
-          <button class="element__like-button" type="button" aria-label="кнопка"></button>
-        </div>
-      </article>
-      <article class="element"> <!--Шестой элемент-->
-        <img class="element__image" src="./images/vladivostok.jpg" alt="Изображение">
-        <div class="element__caption">
-          <h2 class="element__caption-title">Владивосток</h2>
-          <button class="element__like-button" type="button" aria-label="кнопка"></button>
-        </div>
-      </article>
+      
     </section>
 
-    <div class="popup">
+    <template id="element">
+      <article class="element">
+        <button class="element__delete-button" type="button" aria-label="кнопка"></button>
+        <img class="element__image" alt="Изображение">
+        <div class="element__caption">
+          <h2 class="element__name"></h2>
+          <button class="element__like-button" type="button" aria-label="кнопка"></button>
+        </div>
+      </article>
+    </template>
+
+    <div class="popup popup_type_edit-profile">
+      <div class="popup__overlay"></div>
       <div class="popup__container">
         <form class="form" name="edit-profile-form">
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__input-container"> 
-            <input class="form__input" type="text" name="name" id="name" placeholder="Введите ваше имя" required>
-            <input class="form__input" type="text" name="about" id="about" placeholder="Расскажите о себе" required>
+            <input class="form__input form__input_item_name" type="text" name="name" placeholder="Введите ваше имя" required>
+            <input class="form__input form__input_item_about" type="text" name="about" placeholder="Расскажите о себе" required>
           </fieldset> 
           <button class="form__submit-button" type="submit">Сохранить</button> 
         </form> 
@@ -85,6 +56,29 @@
       </div>
     </div>
 
+    <div class="popup popup_type_add-place">
+      <div class="popup__overlay"></div>
+      <div class="popup__container">
+        <form class="form" name="edit-profile-form">
+          <h2 class="form__title">Новое место</h2>
+          <fieldset class="form__input-container"> 
+            <input class="form__input form__input_item_place" type="text" name="place" placeholder="Название" required>
+            <input class="form__input form__input_item_link" type="url" name="link" placeholder="Ссылка на картинку" required>
+          </fieldset> 
+          <button class="form__submit-button" type="submit">Создать</button> 
+        </form> 
+        <button class="popup__close-button" type="button" aria-label="кнопка"></button>
+      </div>
+    </div>
+
+    <div class="popup popup_type_zoom-image ">
+      <div class="popup__overlay"></div>
+      <div class="popup__zoom-image">
+          <img class="popup__image" alt="Изображение">
+          <p class="popup__caption"></p>
+        <button class="popup__close-button" type="button" aria-label="кнопка"></button>
+      </div>
+    </div>
   </main>
   <!-- Подвал сайта -->
   <footer class="footer">
