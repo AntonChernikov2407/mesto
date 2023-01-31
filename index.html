@@ -33,7 +33,7 @@
     <template id="element">
       <article class="element">
         <button class="element__delete-button" type="button" aria-label="кнопка"></button>
-        <img class="element__image" alt="Изображение">
+        <img class="element__image">
         <div class="element__caption">
           <h2 class="element__name"></h2>
           <button class="element__like-button" type="button" aria-label="кнопка"></button>
@@ -41,8 +41,8 @@
       </article>
     </template>
 
-    <div class="popup popup_type_edit-profile">
-      <div class="popup__overlay"></div>
+    <div class="popup popup_type_edit-profile popup_theme_light">
+      <div class="popup__close-overlay"></div>
       <div class="popup__container">
         <form class="form" name="edit-profile-form">
           <h2 class="form__title">Редактировать профиль</h2>
@@ -56,8 +56,8 @@
       </div>
     </div>
 
-    <div class="popup popup_type_add-place">
-      <div class="popup__overlay"></div>
+    <div class="popup popup_type_add-place popup_theme_light">
+      <div class="popup__close-overlay"></div>
       <div class="popup__container">
         <form class="form" name="edit-profile-form">
           <h2 class="form__title">Новое место</h2>
@@ -71,10 +71,10 @@
       </div>
     </div>
 
-    <div class="popup popup_type_zoom-image ">
-      <div class="popup__overlay"></div>
+    <div class="popup popup_type_zoom-image popup_theme_dark">
+      <div class="popup__close-overlay"></div>
       <div class="popup__zoom-image">
-          <img class="popup__image" alt="Изображение">
+          <img class="popup__image">
           <p class="popup__caption"></p>
         <button class="popup__close-button" type="button" aria-label="кнопка"></button>
       </div>

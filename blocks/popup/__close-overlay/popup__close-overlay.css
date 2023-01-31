@@ -1,7 +1,6 @@
-.popup__overlay {
+.popup__close-overlay {
   width: inherit;
   height: inherit;
   position: inherit;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
 }

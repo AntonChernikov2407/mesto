@@ -11,3 +11,13 @@
   top: 0;
   left: 0;
 }
+
+.popup::before {
+  content: '';
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #000;
+}
