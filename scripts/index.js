@@ -30,16 +30,15 @@ const profileName = page.querySelector('.profile__name');
 const profileAboutYourself = page.querySelector('.profile__about-yourself');
 const editButton = page.querySelector('.profile__edit-button');
 const addButton = page.querySelector('.profile__add-button');
-const closeButtons = page.querySelectorAll('.popup__close-button');
-const overlays = page.querySelectorAll('.popup__close-overlay');
+const popupOpened = page.querySelector('.popup_opened');
 const popupEditProfile = page.querySelector('.popup_type_edit-profile');
 const popupAddPlace = page.querySelector('.popup_type_add-place');
-const formEditProfile = popupEditProfile.querySelector('.form');
-const formAddPlace = popupAddPlace.querySelector('.form');
-const inputName = popupEditProfile.querySelector('.form__input_item_name');
-const inputAbout = popupEditProfile.querySelector('.form__input_item_about');
-const inputPlace = popupAddPlace.querySelector('.form__input_item_place');
-const inputLink = popupAddPlace.querySelector('.form__input_item_link');
+const formEditProfile = document.forms.editProfileForm;
+const formAddPlace = document.forms.addPlaceForm;
+const inputName = formEditProfile.elements.name;
+const inputAbout = formEditProfile.elements.about;
+const inputPlace = formAddPlace.elements.place;
+const inputLink = formAddPlace.elements.link;
 const popupZoomImage = page.querySelector('.popup_type_zoom-image');
 const popupImage = popupZoomImage.querySelector('.popup__image');
 const popupCaption = popupZoomImage.querySelector('.popup__caption');
@@ -54,7 +53,7 @@ function renderElements() {
   elements.prepend(...elementArr);
 };
 
-// Создает новый элемент из шаблона и добавляет слушатели на кнопки
+// Создает новый элемент из шаблона
 function createElement(item) {
   const element = elementTemplate.cloneNode(true);
   const elementImage = element.querySelector('.element__image');
@@ -62,19 +61,29 @@ function createElement(item) {
   elementImage.src = item.link;
   elementImage.alt = item.name;
   elementName.textContent = item.name;
-  element.querySelector('.element__like-button').addEventListener('click', toggleLike);
-  element.querySelector('.element__delete-button').addEventListener('click', deleteElement);
-  elementImage.addEventListener('click', zoomImage);
   return element;
 };
 
+// Добавляет события на элементы фотокарточек 
+function addEventsForElements(evt) {
+  if (evt.target.classList.contains('element__like-button')) {
+    toggleLike(evt);
+  }
+  if (evt.target.classList.contains('element__delete-button')) {
+    deleteElement(evt);
+  }
+  if (evt.target.classList.contains('element__image')) {
+    zoomImage(evt);
+  }
+}
+
 // Включает/выключает кнопку лайка
-function toggleLike (evt) {
+function toggleLike(evt) {
   evt.target.classList.toggle('element__like-button_active');
 };
 
 // Удаляет элемент
-function deleteElement (evt) {
+function deleteElement(evt) {
   evt.target.closest('.element').remove();
 };
 
@@ -88,27 +97,47 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-// Добавляет слушатели на кнопку закрытия
-closeButtons.forEach(function (buttons) {
-  const popup = buttons.closest('.popup');
-  buttons.addEventListener('click', function() {
-    closePopup(popup);
-  });
-});
+// Закрывает открытый popup при нажатии кнопки закрытия или подложки
+function addEventsForPopups(evt) {
+  if (evt.target.classList.contains('popup__close-button') ||
+      evt.target.classList.contains('popup__close-overlay')) {
+    closePopup(evt.target.closest('.popup'));
+  }
+}
 
-// Добавляет слушатели на подложку
-overlays.forEach(function(element) {
-  const popup = element.closest('.popup');
-  element.addEventListener('click', function() {
-    closePopup(popup);
+// Закрывает открытый popup при нажатии клавиши esc
+function closeByKey(evt) {
+  if (evt.key === 'Escape') {
+    const popupsList = page.querySelectorAll('.popup');
+    popupsList.forEach((popup) => {
+      if (popup.classList.contains('popup_opened')) {
+        closePopup(popup);
+      }
+    });
+  };
+};
+
+// Проверка значений полей
+function checkInputValue(popup) {
+  const inputsList = popup.querySelectorAll('.form__input');
+  const submitButton = popup.querySelector('.form__submit-button');
+  inputsList.forEach((input) => {
+    if (input.value === '') {
+      submitButton.classList.add('form__submit-button_inactive');
+    } else {
+      submitButton.classList.remove('form__submit-button_inactive');
+      input.classList.remove('form__input_type_error');
+      input.nextElementSibling.classList.remove('form__input-error_active');
+    }
   });
-})
+};
 
 // Открывает popupEditProfile и заполняет поля ввода значениями со страницы
 function editProfile() {
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputAbout.value = profileAboutYourself.textContent;
+  checkInputValue(popupEditProfile);
 }
 
 // Открывает popupAddPlace
@@ -142,6 +171,7 @@ function handlePlaceFormSubmit(evt) {
   const element = createElement({name: place, link: link});
   elements.prepend(element);
   evt.target.reset();
+  checkInputValue(popupAddPlace);
   closePopup(popupAddPlace);
 }
 
@@ -150,3 +180,6 @@ editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', openCardPopup);
 formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 formAddPlace.addEventListener('submit', handlePlaceFormSubmit);
+elements.addEventListener('click', addEventsForElements);
+page.addEventListener('click', addEventsForPopups);
+page.addEventListener('keydown', closeByKey);

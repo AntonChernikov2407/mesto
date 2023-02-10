@@ -11,8 +11,9 @@
   font-weight: 400;
   opacity: 1;
   transition: opacity 0.3s ease-out;
+  border-radius: 2px;
 }
-
+ 
 .form__submit-button:hover {
   opacity: 0.8;
   cursor: pointer;
