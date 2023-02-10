@@ -137,7 +137,7 @@ function editProfile() {
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputAbout.value = profileAboutYourself.textContent;
-  checkInputValue(popupEditProfile);
+  // checkInputValue(popupEditProfile);
 }
 
 // Открывает popupAddPlace
@@ -171,7 +171,7 @@ function handlePlaceFormSubmit(evt) {
   const element = createElement({name: place, link: link});
   elements.prepend(element);
   evt.target.reset();
-  checkInputValue(popupAddPlace);
+  // checkInputValue(popupAddPlace);
   closePopup(popupAddPlace);
 }
 
