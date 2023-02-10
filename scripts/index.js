@@ -118,26 +118,26 @@ function closeByKey(evt) {
 };
 
 // Проверка значений полей
-// function checkInputValue(popup) {
-//   const inputsList = popup.querySelectorAll('.form__input');
-//   const submitButton = popup.querySelector('.form__submit-button');
-//   inputsList.forEach((input) => {
-//     if (input.value === '') {
-//       submitButton.classList.add('form__submit-button_inactive');
-//     } else {
-//       submitButton.classList.remove('form__submit-button_inactive');
-//       input.classList.remove('form__input_type_error');
-//       input.nextElementSibling.classList.remove('form__input-error_active');
-//     }
-//   });
-// };
+function checkInputValue(popup) {
+  const inputsList = popup.querySelectorAll('.form__input');
+  const submitButton = popup.querySelector('.form__submit-button');
+  inputsList.forEach((input) => {
+    if (input.value === '') {
+      submitButton.classList.add('form__submit-button_inactive');
+    } else {
+      submitButton.classList.remove('form__submit-button_inactive');
+      input.classList.remove('form__input_type_error');
+      input.nextElementSibling.classList.remove('form__input-error_active');
+    }
+  });
+};
 
 // Открывает popupEditProfile и заполняет поля ввода значениями со страницы
 function editProfile() {
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputAbout.value = profileAboutYourself.textContent;
-  // checkInputValue(popupEditProfile);
+  checkInputValue(popupEditProfile);
 }
 
 // Открывает popupAddPlace
@@ -171,7 +171,7 @@ function handlePlaceFormSubmit(evt) {
   const element = createElement({name: place, link: link});
   elements.prepend(element);
   evt.target.reset();
-  // checkInputValue(popupAddPlace);
+  checkInputValue(popupAddPlace);
   closePopup(popupAddPlace);
 }
 
