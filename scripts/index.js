@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const page = document.querySelector('.page');
 const profileName = page.querySelector('.profile__name');
 const profileAboutYourself = page.querySelector('.profile__about-yourself');
@@ -46,11 +19,8 @@ const elementTemplate = page.querySelector('#element').content.querySelector('.e
 const elements = page.querySelector('.elements');
 
 // Добавляет на страницу элементы массива
-function renderElements() {
-  const elementArr = initialCards.map(function (item) {
-    return createElement(item);
-  });
-  elements.prepend(...elementArr);
+function renderInitialElements() {
+  elements.prepend(...initialCards.map(createElement));
 };
 
 // Создает новый элемент из шаблона
@@ -68,14 +38,24 @@ function createElement(item) {
 function addEventsForElements(evt) {
   if (evt.target.classList.contains('element__like-button')) {
     toggleLike(evt);
+    return;
   }
   if (evt.target.classList.contains('element__delete-button')) {
     deleteElement(evt);
+    return;
   }
   if (evt.target.classList.contains('element__image')) {
     zoomImage(evt);
   }
 }
+
+// Закрывает открытый popup при нажатии клавиши esc
+function closeByKey(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = evt.currentTarget.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+};
 
 // Включает/выключает кнопку лайка
 function toggleLike(evt) {
@@ -90,11 +70,14 @@ function deleteElement(evt) {
 // Открывает popup
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  page.addEventListener('keydown', closeByKey);
+  closeByKey(popup);
 }
 
 // Закрывает popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  page.removeEventListener('keydown', closeByKey);
 }
 
 // Закрывает открытый popup при нажатии кнопки закрытия или подложки
@@ -105,43 +88,17 @@ function addEventsForPopups(evt) {
   }
 }
 
-// Закрывает открытый popup при нажатии клавиши esc
-function closeByKey(evt) {
-  if (evt.key === 'Escape') {
-    const popupsList = page.querySelectorAll('.popup');
-    popupsList.forEach((popup) => {
-      if (popup.classList.contains('popup_opened')) {
-        closePopup(popup);
-      }
-    });
-  };
-};
-
-// Проверка значений полей
-function checkInputValue(popup) {
-  const inputsList = popup.querySelectorAll('.form__input');
-  const submitButton = popup.querySelector('.form__submit-button');
-  inputsList.forEach((input) => {
-    if (input.value === '') {
-      submitButton.classList.add('form__submit-button_inactive');
-    } else {
-      submitButton.classList.remove('form__submit-button_inactive');
-      input.classList.remove('form__input_type_error');
-      input.nextElementSibling.classList.remove('form__input-error_active');
-    }
-  });
-};
-
 // Открывает popupEditProfile и заполняет поля ввода значениями со страницы
 function editProfile() {
+  setEventListeners(validationConfig, popupEditProfile);
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputAbout.value = profileAboutYourself.textContent;
-  checkInputValue(popupEditProfile);
 }
 
 // Открывает popupAddPlace
 function openCardPopup() {
+  setEventListeners(validationConfig, popupAddPlace);
   openPopup(popupAddPlace);
 }
 
@@ -171,15 +128,14 @@ function handlePlaceFormSubmit(evt) {
   const element = createElement({name: place, link: link});
   elements.prepend(element);
   evt.target.reset();
-  checkInputValue(popupAddPlace);
   closePopup(popupAddPlace);
 }
 
-renderElements();
+renderInitialElements();
+enableValidation(validationConfig);
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', openCardPopup);
 formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 formAddPlace.addEventListener('submit', handlePlaceFormSubmit);
 elements.addEventListener('click', addEventsForElements);
 page.addEventListener('click', addEventsForPopups);
-page.addEventListener('keydown', closeByKey);

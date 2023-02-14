@@ -1,18 +1,30 @@
 // Показывает ошибки
-function showInputError({form, input, inputErrorClass, errorClass, errorMessage}) {
+function showInputError(config, form, input, errorMessage) {
   const errorElement = form.querySelector(`.${input.id}-error`);
-  input.classList.add(inputErrorClass);
+  input.classList.add(config['inputErrorClass']);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(errorClass);
+  errorElement.classList.add(config['errorClass']);
 };
 
 // Скрывает ошибки
-function hideInputError({form, input, inputErrorClass, errorClass}) {
+function hideInputError(config, form, input) {
   const errorElement = form.querySelector(`.${input.id}-error`);
-  input.classList.remove(inputErrorClass);
+  input.classList.remove(config['inputErrorClass']);
   errorElement.textContent = '';
-  errorElement.classList.remove(errorClass);
+  errorElement.classList.remove(config['errorClass']);
 };
+
+// Деактивирует кнопку сабмита
+function disableButton(config, submitButton) {
+  submitButton.classList.add(config['inactiveButtonClass']);
+  submitButton.setAttribute('disabled', true);
+}
+
+// Активирует кнопку сабмита
+function enableButton(config, submitButton) {
+  submitButton.classList.remove(config['inactiveButtonClass']);
+  submitButton.removeAttribute('disabled');
+}
 
 // Проверка на наличие невалидных полей
 function hasInvalidInput(inputsList) {
@@ -22,56 +34,43 @@ function hasInvalidInput(inputsList) {
 };
 
 // Переключатель состояния кнопки
-function toggleButtonState(inputsList, submitButton, inactiveButtonClass) {
+function toggleButtonState(config, inputsList, submitButton) {
   if (hasInvalidInput(inputsList)) {
-    submitButton.classList.add(inactiveButtonClass);
+    disableButton(config, submitButton);
   } else {
-    submitButton.classList.remove(inactiveButtonClass);
+    enableButton(config, submitButton);
   }
 };
 
 // Проверка валидности полей
-function checkValidity({form, input, inputErrorClass, errorClass}) {
+function checkValidity(config, form, input) {
+  const errorMessage = input.validationMessage;
   if (!input.validity.valid) {
-    const errorMessage = input.validationMessage;
-    showInputError({form, input, inputErrorClass, errorClass, errorMessage});
+    showInputError(config, form, input, errorMessage);
   } else {
-    hideInputError({form, input, inputErrorClass, errorClass});
+    hideInputError(config, form, input);
   }
 };
 
 // Добавляет слушатели событий
-function setEventListeners({form, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}) {
-  const submitButton = form.querySelector(submitButtonSelector);
-  const inputsList = Array.from(form.querySelectorAll(inputSelector));
-  toggleButtonState(inputsList, submitButton, inactiveButtonClass);
+function setEventListeners(config, form) {
+  const submitButton = form.querySelector(config['submitButtonSelector']);
+  const inputsList = Array.from(form.querySelectorAll(config['inputSelector']));
+  toggleButtonState(config, inputsList, submitButton);
   inputsList.forEach((input) => {
+    disableButton(config, submitButton);
+    hideInputError(config, form, input);
     input.addEventListener('input', function () {
-      checkValidity({form, input, inputErrorClass, errorClass});
-      toggleButtonState(inputsList, submitButton, inactiveButtonClass);
+      checkValidity(config, form, input);
+      toggleButtonState(config, inputsList, submitButton);
     })
   });
 };
 
 // Включает валидацию форм
-function enableValidation({ 
-  formSelector,
-  inputSelector,
-  submitButtonSelector,
-  inactiveButtonClass,
-  inputErrorClass,
-  errorClass}) {
-    const formsList = Array.from(document.querySelectorAll(formSelector));
+function enableValidation(config) {
+    const formsList = Array.from(document.querySelectorAll(config['formSelector']));
     formsList.forEach((form) => {
-      setEventListeners({form, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass});
+      setEventListeners(config, form);
     });
   };
-
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit-button',
-  inactiveButtonClass: 'form__submit-button_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-});
