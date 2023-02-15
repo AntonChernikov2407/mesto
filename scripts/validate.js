@@ -42,6 +42,16 @@ function toggleButtonState(config, inputsList, submitButton) {
   }
 };
 
+// Сброс валидации при открытии попапов
+function resetValidation(config, form) {
+  const submitButton = form.querySelector(config['submitButtonSelector']);
+  const inputsList = Array.from(form.querySelectorAll(config['inputSelector']));
+  disableButton(config, submitButton);
+  inputsList.forEach((input) => {
+    hideInputError(config, form, input);
+  });
+}
+
 // Проверка валидности полей
 function checkValidity(config, form, input) {
   const errorMessage = input.validationMessage;
@@ -58,8 +68,6 @@ function setEventListeners(config, form) {
   const inputsList = Array.from(form.querySelectorAll(config['inputSelector']));
   toggleButtonState(config, inputsList, submitButton);
   inputsList.forEach((input) => {
-    disableButton(config, submitButton);
-    hideInputError(config, form, input);
     input.addEventListener('input', function () {
       checkValidity(config, form, input);
       toggleButtonState(config, inputsList, submitButton);

@@ -71,7 +71,6 @@ function deleteElement(evt) {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   page.addEventListener('keydown', closeByKey);
-  closeByKey(popup);
 }
 
 // Закрывает popup
@@ -90,7 +89,7 @@ function addEventsForPopups(evt) {
 
 // Открывает popupEditProfile и заполняет поля ввода значениями со страницы
 function editProfile() {
-  setEventListeners(validationConfig, popupEditProfile);
+  resetValidation(validationConfig, popupEditProfile);
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputAbout.value = profileAboutYourself.textContent;
@@ -98,7 +97,7 @@ function editProfile() {
 
 // Открывает popupAddPlace
 function openCardPopup() {
-  setEventListeners(validationConfig, popupAddPlace);
+  resetValidation(validationConfig, popupAddPlace);
   openPopup(popupAddPlace);
 }
 
