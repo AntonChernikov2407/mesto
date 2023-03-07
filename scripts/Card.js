@@ -1,8 +1,4 @@
-import {openPopup} from './index.js';
-
-const popupZoomImage = document.querySelector('.popup_type_zoom-image');
-const popupCaption = popupZoomImage.querySelector('.popup__caption');
-const popupImage = popupZoomImage.querySelector('.popup__image');
+import {openPopup, popupZoomImage, popupCaption, popupImage} from './index.js';
 
 export default class Card {
 
@@ -13,13 +9,11 @@ export default class Card {
   }
 
   _getTemplate() { // Получает содержимое шаблона
-    const cardElement = document
+    return document
       .querySelector(this._templateSelector)
       .content
       .querySelector('.element')
       .cloneNode(true);
-      
-    return cardElement;
   }
 
   generateCard() { // Генерирует новую карточку

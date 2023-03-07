@@ -7,7 +7,7 @@ export default class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
-    this._selectedForm = form;
+    this._form = form;
   }
 
   _showInputError(input) { // Показывает ошибки
@@ -44,6 +44,13 @@ export default class FormValidator {
       : this._enableButton();
   }
 
+  resetValidation() { // Сброс валидации при открытии попапа
+    this._disableButton();
+    this._inputList.forEach((input) => {
+      this._hideInputError(input);
+    })
+  }
+
   _checkInputValidity(input) { // Проверка валидности полей
     !input.validity.valid
       ? this._showInputError(input)
@@ -60,13 +67,12 @@ export default class FormValidator {
   _getInputList() { // Получает список полей ввода
     this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._inputList.forEach((input) => {
-      this._hideInputError(input);
       this._setEventListeners(input);
     })
   }
 
   enableValidation() { // Включает валидацию
-    this._form = this._selectedForm.querySelector(this._formSelector);
+    this._form.addEventListener('reset', () => this._disableButton());
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
     this._getInputList();
     this._toggleButtonState();
