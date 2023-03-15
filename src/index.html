@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./index.css"> -->
   <title>Mesto</title>
 </head>
 <body class="page">
@@ -16,7 +16,7 @@
 
     <section class="profile">
       <div class="profile__container"> 
-        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__about-yourself">Исследователь океана</p>
@@ -89,9 +89,14 @@
     <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
   </footer>
 
-  <script type="module" defer src="./scripts/constants.js"></script>
-  <script type="module" defer src="./scripts/FormValidator.js"></script>
-  <script type="module" defer src="./scripts/index.js"></script>
-  <script type="module" defer src="./scripts/Card.js"></script>
+  <!-- <script type="module" defer src="./utils/constants.js"></script>
+  <script type="module" defer src="./components/FormValidator.js"></script>
+  <script type="module" defer src="./index.js"></script>
+  <script type="module" defer src="./components/Card.js"></script>
+  <script type="module" defer src="./components/Popup.js"></script>
+  <script type="module" defer src="./components/PopupWithForm.js"></script>
+  <script type="module" defer src="./components/PopupWithImage.js"></script>
+  <script type="module" defer src="./components/Section.js"></script>
+  <script type="module" defer src="./components/UserInfo.js"></script> -->
 </body>
 </html>

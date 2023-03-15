@@ -1,3 +1,5 @@
+
+
 export default class FormValidator {
 
   constructor(config, form) {
@@ -45,7 +47,7 @@ export default class FormValidator {
   }
 
   resetValidation() { // Сброс валидации при открытии попапа
-    this._disableButton();
+    // this._disableButton();
     this._inputList.forEach((input) => {
       this._hideInputError(input);
     })
@@ -72,7 +74,7 @@ export default class FormValidator {
   }
 
   enableValidation() { // Включает валидацию
-    this._form.addEventListener('reset', () => this._disableButton());
+    this._form.addEventListener('reset', this._disableButton.bind(this));
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
     this._getInputList();
     this._toggleButtonState();
