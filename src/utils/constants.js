@@ -36,17 +36,9 @@ const validationConfig = {
 
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 const buttonAddPlace = document.querySelector('.profile__add-button');
-const formEditProfile = document.forms.editProfileForm;
-const formAddPlace = document.forms.addPlaceForm;
-const inputName = formEditProfile.elements.name;
-const inputAbout = formEditProfile.elements.about;
 
 export {initialCards,
   validationConfig,
   buttonEditProfile,
-  buttonAddPlace,
-  formAddPlace,
-  formEditProfile,
-  inputAbout,
-  inputName
+  buttonAddPlace
 };
