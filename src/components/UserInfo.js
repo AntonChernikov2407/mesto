@@ -5,8 +5,7 @@ export default class UserInfo {
   constructor({nameSelector, aboutSelector, avatarSelector}) {
     this._name = document.querySelector(nameSelector);
     this._about = document.querySelector(aboutSelector);
-    // this._avatar = document.querySelector(avatarSelector); // Не понимаю почему так не работает
-    this._avatar = document.querySelector('.profile__avatar');
+    this._avatar = document.querySelector(avatarSelector);
   }
 
   getUserInfo() { // Возвращает объект с информацией о пользователе со страницы

@@ -62,19 +62,11 @@ export default class Card {
     })
   }
 
-  _returnObj() { // Возвращает объект с данными
-    return {
-      cardId: this._cardId,
-      likeCount: this._likeCount,
-      likeButton: this._likeButton
-    }
-  }
-
   _handleLikeButtonClick() { // Обработчик клика по кнопке лайка
     if (!this._likeButton.classList.contains('element__like-button_active')) {
-      this._addLike(this._returnObj());
+      this._addLike(this._cardId);
     } else {
-      this._removeLike(this._returnObj());
+      this._removeLike(this._cardId);
     }
   }
 
@@ -87,5 +79,14 @@ export default class Card {
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick({name, image});
     });
+  }
+
+  cardElementRemove(cardElement) { // Удаляет карточку
+    cardElement.remove();
+  }
+
+  changeButtonState(data) { // Меняет состояние кнопки и счетчик лайка
+    this._likeCount.textContent = data.likes.length;
+    this._likeButton.classList.toggle('element__like-button_active');
   }
 }

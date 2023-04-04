@@ -14,7 +14,6 @@ import {avatarElement,
 } from '../utils/constants.js';
 
 
-
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
   headers: {
@@ -37,7 +36,7 @@ const enableValidation = (config) => {
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
   aboutSelector: '.profile__about-yourself',
-  avatarSlelector: '.profile__avatar'
+  avatarSelector: '.profile__avatar' // Вот я слепой :)
 });
 
 const popupWithImage = new PopupWithImage('.popup_type_zoom-image');
@@ -47,22 +46,12 @@ const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (values) => { // Обновление информации о пользователи
     popupEditProfile.renderLoading(true);
     api.patchUserInfo(values)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupEditProfile.close();
       })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        popupEditProfile.renderLoading(false);
-      });
-    popupEditProfile.close();
+      .catch(err => console.log(err))
+      .finally(() => popupEditProfile.renderLoading(false));
   } 
 });
 
@@ -71,14 +60,14 @@ const createCard = (item, info) => { // Возвращает сгенериро�
     handleCardClick: (element) => {
       popupWithImage.open(element);
     },
-    handleDeleteButtonClick: (cardId, card) => {
-      popupDeleteCard.open(cardId, card);
+    handleDeleteButtonClick: (cardId, cardElement) => {
+      popupDeleteCard.open(cardId, cardElement, card);
     },
-    addLike: (data) => {
-      putLike(data);
+    addLike: (cardId) => {
+      putLike(cardId, card);
     },
-    removeLike: (data) => {
-      deleteLike(data);
+    removeLike: (cardId) => {
+      deleteLike(cardId, card);
     }
   });
   return card.generateCard();
@@ -91,22 +80,12 @@ const addPlace = (info) => {
       popupAddPlace.renderLoading(true);
       const {place: name, link} = values;
       api.postNewCard({name, link})
-        .then(res => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(`Ошибка: ${res.status}`);
-        })
         .then((data) => {
           renderCardElements.addItem(createCard(data, info));
+          popupAddPlace.close();
         })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          popupAddPlace.renderLoading(false);
-        });
-      popupAddPlace.close();
+        .catch(err => console.log(err))
+        .finally(() => popupAddPlace.renderLoading(false));
     }
   });
   popupAddPlace.setEventListeners();
@@ -117,21 +96,13 @@ const addPlace = (info) => {
 
 const popupDeleteCard = new PopupWithSubmitButton({
   popupSelector: '.popup_type_delete-card',
-  handleFormSubmit: (cardId, card) => { // Удаление карточки
+  handleFormSubmit: (cardId, cardElement, card) => { // Удаление карточки
     api.deleteCard(cardId)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
       .then(() => {
-        card.remove();
+        card.cardElementRemove(cardElement);
         popupDeleteCard.close(); 
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   }
 })
 
@@ -140,22 +111,12 @@ const popupUpdateAvatar = new PopupWithForm({
   handleFormSubmit: (avatar) => { // Обновление аватара
     popupUpdateAvatar.renderLoading(true);
     api.patchUserAvatar(avatar)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupUpdateAvatar.close();
       })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        popupUpdateAvatar.renderLoading(false);
-      });
-      popupUpdateAvatar.close();
+      .catch(err => console.log(err))
+      .finally(() => popupUpdateAvatar.renderLoading(false));
   }
 })
 
@@ -166,31 +127,15 @@ const renderCardElements = new Section({
 }, '.elements');
 
 const getUserInfo = api.getUserInfo()
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
   .then((info) => {
-      userInfo.setUserInfo(info);
-      return info;
+    userInfo.setUserInfo(info);
+    return info;
   })
-  .catch((err) => {
-    console.log(err);
-  });
+  .catch(err => console.log(err));
 
 const getInitialCards = api.getInitialCards()
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
   .then(data => data)
-  .catch((err) => {
-    console.log(err);
-  });
+  .catch(err => console.log(err));
 
 const promises = [getUserInfo, getInitialCards];  
 
@@ -202,38 +147,20 @@ Promise.all(promises)
   })
 
 
-const putLike = ({cardId, likeCount, likeButton}) => {
+const putLike = (cardId, card) => {
   api.putLike(cardId)
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
     .then((data) => {
-      likeCount.textContent = data.likes.length;
-      likeButton.classList.add('element__like-button_active');
+      card.changeButtonState(data);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 }
 
-const deleteLike = ({cardId, likeCount, likeButton}) => {
+const deleteLike = (cardId, card) => {
   api.deleteLike(cardId)
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
     .then((data) => {
-      likeCount.textContent = data.likes.length;
-      likeButton.classList.remove('element__like-button_active');
+      card.changeButtonState(data);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 }
 
 avatarElement.addEventListener('click', () => {
