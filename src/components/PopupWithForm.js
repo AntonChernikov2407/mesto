@@ -7,6 +7,8 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._inputList = this._popup.querySelectorAll('.form__input');
     this._form = this._popup.querySelector('.form');
+    this._submitButton = this._form.querySelector('.form__submit-button');
+    this._buttonText = this._submitButton.textContent;
   }
 
   _getInputValues() { // Возвращает объект с полями ввода и их значениями
@@ -15,6 +17,14 @@ export default class PopupWithForm extends Popup {
       this._formValues[input.name] = input.value;
     })
     return this._formValues;
+  }
+
+  renderLoading(isLoading) { // Отбражение процесса сохранения
+    if (isLoading) {
+      this._submitButton.textContent = 'Сохранение...';
+    } else {
+      this._submitButton.textContent = this._buttonText;
+    }
   }
 
   setInputValues(data) { // Устанавливает значения полей ввода при открытии формы

@@ -15,11 +15,13 @@
   <main class="content">
 
     <section class="profile">
-      <div class="profile__container"> 
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+      <div class="profile__container">
+        <div class="profile__avatar-container">
+          <img class="profile__avatar" alt="Аватар">
+        </div> 
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__about-yourself">Исследователь океана</p>
+          <h1 class="profile__name"></h1>
+          <p class="profile__about-yourself"></p>
           <button class="profile__edit-button" type="button" aria-label="кнопка"></button>
         </div>
       </div>
@@ -36,7 +38,10 @@
         <img class="element__image">
         <div class="element__caption">
           <h2 class="element__name"></h2>
-          <button class="element__like-button" type="button" aria-label="кнопка"></button>
+          <div class="element__like-container">
+            <button class="element__like-button" type="button" aria-label="кнопка"></button>
+            <p class="element__like-count">66</p>
+          </div>
         </div>
       </article>
     </template>
@@ -83,6 +88,33 @@
         <button class="popup__close-button" type="button" aria-label="кнопка"></button>
       </div>
     </div>
+
+    <div class="popup popup_type_delete-card popup_theme_light">
+      <div class="popup__close-overlay"></div>
+      <div class="popup__container">
+        <form class="form" name="deleteCardForm">
+          <h2 class="form__title">Вы уверены?</h2>
+          <button class="form__submit-button form__submit-button_margin_top" type="submit">Да</button>
+        </form> 
+        <button class="popup__close-button" type="button" aria-label="кнопка"></button>
+      </div>
+    </div>
+
+    <div class="popup popup_type_update-avatar popup_theme_light">
+      <div class="popup__close-overlay"></div>
+      <div class="popup__container">
+        <form class="form" name="updateAvatarForm" novalidate>
+          <h2 class="form__title">Обновить аватар</h2>
+          <fieldset class="form__input-container"> 
+            <input class="form__input" id="avatar-input" type="url" name="avatar" placeholder="Ссылка на картинку" required>
+            <span class="form__input-error avatar-input-error"></span>
+            <button class="form__submit-button" type="submit">Сохранить</button>
+          </fieldset> 
+        </form> 
+        <button class="popup__close-button" type="button" aria-label="кнопка"></button>
+      </div>
+    </div>
+
   </main>
   <!-- Подвал сайта -->
   <footer class="footer">

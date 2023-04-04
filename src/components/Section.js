@@ -2,8 +2,7 @@
 
 export default class Section {
   
-  constructor({data, renderer}, containerSelector) {
-    this._renderedItems = data;
+  constructor({renderer}, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
@@ -12,10 +11,13 @@ export default class Section {
     this._container.prepend(element);
   }
 
-  renderItems() { // Перебирает массив элементов для отрисовки
-    this._renderedItems.forEach(item => {
-      this._renderer(item);
-    });
+  renderItems(data, info) { // Перебирает массив элементов для отрисовки
+    for (let i = data.length - 1; i >= 0; i --) { // Перебор массива с конца, для отображения
+      this._renderer(data[i], info);              // карточек на странице в нужном порядке
+    }
+    // data.forEach(item => { 
+    //   this._renderer(item, info);
+    // });
   }
 
 }
